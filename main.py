@@ -16,7 +16,7 @@ class WebPage:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"
     }
     products_link = []
-    product = []
+    products = []
 
     def get_request(self, url: str):
         """
@@ -39,7 +39,7 @@ class WebPage:
         amount_pages = int(
             soup.find("span", class_="s-pagination-item s-pagination-disabled").string
         )
-        for item in range(1, amount_pages):
+        for item in range(0, amount_pages):
             url = f"https://www.amazon.com.br/s?k=lola+cosmetics&page={item}&crid=3388UCEFGMOSB&sprefix=%2Caps%2C690&ref=nb_sb_ss_sx-trend-t-ps-d-purchases-ten-ca_5_0"
             request = requests.get(url, headers=self.headers)
             soup = BeautifulSoup(request.content, "lxml")
@@ -47,7 +47,7 @@ class WebPage:
 
     def get_products_individual_links(self, soup):
         """
-        Method responsible for getting all the products individual links.
+        Method responsible for getting all the products individual links and saving in an attribute which is a list products_link
         """
         products = soup.find_all(
             "a",
@@ -82,17 +82,29 @@ class WebPage:
                     ).string.strip()
                 except:
                     reviews_amount = "no one review it"
+                product = {
+                    "Nome do Produto": product_name,
+                    "Preço": product_price,
+                    "Rate": product_rate,
+                    "Quantidade de reviews": reviews_amount,
+                }
+                self.products.append(product)
                 print(f"Saving {product_name}")
 
     def transform_excel(self):
-        df = pd.DataFrame(self.product)
-        print(df)
+        """
+        This method is responsible for creating or overwriting an already existing xlsx
+        """
+        df = pd.DataFrame(self.products)
+        df.to_excel("utils\products.xlsx", sheet_name="Produtos")
 
 
 def main():
     web_page = WebPage()
     web_page.get_request_from_all_pages()
     web_page.get_products_info()
+    web_page.transform_excel()
 
 
+# Calling the def main() method
 main()
