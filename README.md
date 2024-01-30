@@ -1,6 +1,6 @@
-# Webscraping Notebooks Magazine Luiza
+# Webscraping Amazon Pages
 
-This code is responsible for scraping data about notebooks on the magazine luiza page, thanks to that we are able to gather data about notebook title and it's price on a excel sheet.
+This code is responsible for scraping data about beauty products on the amazon page, thanks to that we are able to gather data about notebook title and it's price on a excel sheet.
 
 ## Technologies used
 
