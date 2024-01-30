@@ -1,6 +1,6 @@
 # Webscraping Amazon Pages
 
-This code is responsible for scraping data about beauty products on the amazon page, thanks to that we are able to gather data about notebook title and it's price on a excel sheet.
+This code is responsible for scraping data about beauty products on the amazon page, thanks to that we are able to gather data about name of the product, price, rate and amount of reviews.
 
 ## Technologies used
 
